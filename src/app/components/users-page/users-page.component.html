@@ -1,0 +1,16 @@
+<div>
+    
+    <span>Count init component {{ countInit }}</span>
+
+    
+    <ul *ngIf="!loading">
+        <li *ngFor="let user of users">
+            <a [routerLink]="['/users', user.id]">{{ user.name }}</a>
+        </li>
+
+
+    </ul>
+    <p *ngIf="loading">Loading ...</p>
+
+
+</div>
