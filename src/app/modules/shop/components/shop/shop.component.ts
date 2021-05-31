@@ -10,13 +10,13 @@ import {ShopService} from '../../services/shop.service';
 export class ShopComponent implements OnInit {
     products: Product[] = [];
     loading = true;
-    cart: Product[] = this.ShopApi.cartProducts;
+    cart: Product[] =  JSON.parse(localStorage.getItem('cart') as string) || [];
 
     constructor(private ShopApi: ShopService) {
     }
 
     ngOnInit(): void {
-        this.cart = JSON.parse(localStorage.getItem('cart') as string);
+        this.cart = JSON.parse(localStorage.getItem('cart') as string) || [];
         console.log('init', this.cart);
         this.ShopApi.loadProducts().subscribe((products) => {
             this.products = (products as Product[]);
@@ -35,7 +35,6 @@ export class ShopComponent implements OnInit {
 
 
     AddToCart(product: Product) {
-
         const productId = product.id;
         if (product.count === 0) {
             this.cart.push(product);
@@ -52,6 +51,7 @@ export class ShopComponent implements OnInit {
                 }
             }
         });
-        this.ShopApi.setcartProducts(JSON.stringify(this.cart));
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+        // this.ShopApi.setcartProducts(JSON.stringify(this.cart));
     }
 }

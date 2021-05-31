@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-checkout',
@@ -8,46 +9,23 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class CheckoutComponent implements OnInit {
 
-  loginForm: FormGroup;
-  testField: FormControl;
+  checkoutForm: FormGroup;
 
   constructor() {
-
-    this.testField = new FormControl();
-
-    this.loginForm = new FormGroup({
+    this.checkoutForm = new FormGroup({
+      firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      phone: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      name: new FormControl('', [Validators.required, this.customValid]),
     });
-
-
   }
 
   ngOnInit(): void {
   }
 
-  customValid(control: FormControl) {
-    console.log(control.value);
-    if (+control.value.length < 25) {
-      return {custom: {message: 'asdfasfdasdfasfdafsd'}};
-    }
-    return null;
-  }
-
-  customValidWithParams(test1: any) {
-
-    return (control: FormControl) => {
-      if (+control.value > 25) {
-        return {custom: {message: 'asdfasfdasdfasfdafsd'}};
-      }
-      return null;
-    }
-
-  }
-
   submitAction(event: any) {
     event.preventDefault();
-    localStorage.setItem('cart', JSON.stringify([]));
-    console.log('FORM DATA ===', this.loginForm.value);
+    console.log('LOG ===', this.checkoutForm.value);
   }
+
 }

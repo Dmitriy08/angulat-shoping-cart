@@ -1,36 +1,76 @@
 <div class="container">
-    <form [formGroup]="loginForm">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    formControlName="email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            <div class="errors" *ngIf="loginForm.controls.email.status === 'INVALID'" >
-                <div>Field not valid</div>
-                <div>{{ loginForm.controls.email.errors | json }}</div>
-            </div>
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mt-5 mb-3">Checkout</h3>
+            <form [formGroup]="checkoutForm">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        name="firstname"
+                                        placeholder="First Name"
+                                        formControlName="firstname">
+                                <p class="errors"
+                                   *ngIf="checkoutForm.controls.firstname.status === 'INVALID' && checkoutForm.controls.firstname.dirty">
+                                    <span>Required field and min length 2</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        name="lastname"
+                                        placeholder="Last Name"
+                                        formControlName="lastname">
+                                <p class="errors"
+                                   *ngIf="checkoutForm.controls.lastname.status === 'INVALID' && checkoutForm.controls.lastname.dirty">
+                                    <span>Required field and min length 2</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input
+                                        type="tel"
+                                        class="form-control"
+                                        name="phone"
+                                        placeholder="Phone"
+                                        formControlName="phone">
+                                <p class="errors"
+                                   *ngIf="checkoutForm.controls.phone.status === 'INVALID' && checkoutForm.controls.phone.dirty">
+                                    <span>Required field</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input
+                                        type="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="Email"
+                                        formControlName="email">
+                                <p class="errors"
+                                   *ngIf="checkoutForm.controls.email.status === 'INVALID' && checkoutForm.controls.email.dirty">
+                                    <span>Required field, test@test.com</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button
+                        type="submit"
+                        [disabled]="checkoutForm.status === 'INVALID'"
+                        (click)="submitAction($event)"
+                        routerLink="/thanks"
+                        class="btn btn-primary">Submit
+                </button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="name">Your name</label>
-            <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    aria-describedby="emailHelp"
-                    formControlName="name">
-            <div class="errors" *ngIf="loginForm.controls.name.status === 'INVALID'" >
-                <div>Field not valid</div>
-                <div>{{ loginForm.controls.name.errors | json }}</div>
-            </div>
-        </div>
-        <button routerLink="/shop/thanks" type="submit" [disabled]="loginForm.status === 'INVALID'" (click)="submitAction($event)" class="btn btn-primary">Submit</button>
-    </form>
-
-    <div>Form status: {{ loginForm.status }}</div>
-    <div>Form value: {{ loginForm.value | json }}</div>
-
+    </div>
 </div>
